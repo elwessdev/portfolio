@@ -9,6 +9,25 @@ const Contact = () => {
     const form = useRef();
     const sendEmail = (e) => {
         e.preventDefault();
+
+        // Validate
+        const name = form.current.name.value.trim();
+        const email = form.current.email.value.trim();
+        const project = form.current.project.value.trim();
+        if (!name || !email || !project) {
+            toast.error('Please fill in all fields', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+            return;
+        }
+
         emailjs.sendForm(
             process.env.REACT_APP_MAILJS_SERVICE,
             process.env.REACT_APP_MAILJS_TEMPLATE,
